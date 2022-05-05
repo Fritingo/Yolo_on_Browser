@@ -75,17 +75,17 @@ class FirstCSPBlock(nn.Module):
 
     def forward(self,x):
         x = self.downsample(x)
-        print('downsampe ',x.shape)
+        # print('downsampe ',x.shape)
         x0 = self.split_conv0(x)
         
         x1 = self.split_conv1(x)
-        print('x0:',x0.shape,'x1:',x1.shape)
+        # print('x0:',x0.shape,'x1:',x1.shape)
 
         x0 = self.conv_block(x0)
-        print('x0 2',x0.shape)
+        # print('x0 2',x0.shape)
 
         x = torch.cat([x0,x1],dim=1)
-        print('combine ',x.shape)
+        # print('combine ',x.shape)
         x = self.conv_concat(x)
 
         return x
@@ -109,13 +109,13 @@ class CSPBlock(nn.Module):
 
     def forward(self,x):
         x = self.downsample(x)
-        print('2 downsample',x.shape)
+        # print('2 downsample',x.shape)
         x0 = self.split_conv0(x)
         x1 = self.split_conv1(x)
-        print('2 x0:',x0.shape,'2 x1:',x1.shape)
+        # print('2 x0:',x0.shape,'2 x1:',x1.shape)
 
         x0 = self.conv_block(x0)
-        print('2 x0:',x0.shape)
+        # print('2 x0:',x0.shape)
 
         x = torch.cat([x0,x1],dim=1)
         x = self.conv_concat(x)
@@ -149,11 +149,11 @@ class CSPDarknet(nn.Module):
 
     def forward(self,x):
         x = self.conv1(x)
-        print('one---> ',x.shape)
+        # print('one---> ',x.shape)
         feature = []
         for stage in self.stages:
             x = stage(x)
-            print('stage---> ',x.shape)
+            # print('stage---> ',x.shape)
             feature.append(x)
 
         return feature[-self.num_feature:]
