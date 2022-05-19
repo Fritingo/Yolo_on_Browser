@@ -8,9 +8,9 @@ from CSPDarknet53 import CSPDarknet
 
 # SPP
 
-class SSP(nn.Module):
+class SPP(nn.Module):
     def __init__(self,pool_sizes=[5,9,13]):
-        super(SSP,self).__init__()
+        super(SPP,self).__init__()
 
         self.maxpool0 = nn.MaxPool2d(pool_sizes[0],1,pool_sizes[0]//2)
         self.maxpool1 = nn.MaxPool2d(pool_sizes[1],1,pool_sizes[1]//2)
@@ -145,7 +145,7 @@ class yolo(nn.Module):
         self.p1_conv_x3 = conv_3(1024,512,1024)
 
         # P2
-        self.ssp = SSP()
+        self.spp = SPP()
 
         # P3
         self.p3_conv_x3 = conv_3(2048,512,1024)
@@ -196,8 +196,8 @@ class yolo(nn.Module):
         p1 = self.p1_conv_x3(x[2])
         # batch_size x 512 x 13 x 13
 
-        # SSP P2
-        p2 = self.ssp(p1)
+        # SPP P2
+        p2 = self.spp(p1)
         # batch_size x 2048 x 13 x 13
 
         # P3

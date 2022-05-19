@@ -162,6 +162,6 @@ class CSPDarknet(nn.Module):
 
 if __name__ == '__main__':
     model = CSPDarknet(2)
-    x = torch.randn(1,3,416,416)
+    x = torch.randn(5,3,416,416)
     y = model(x)
     print(len(y),y)
