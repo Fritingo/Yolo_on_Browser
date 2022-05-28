@@ -18,34 +18,21 @@ class DecodeBox():
         self.num_classes    = num_classes
         self.bbox_attrs     = 5 + num_classes
         self.input_shape    = input_shape
-        #-----------------------------------------------------------#
-        #   13x13的特征层对应的anchor是[81,82],[135,169],[344,319]
-        #   26x26的特征层对应的anchor是[10,14],[23,27],[37,58]
-        #-----------------------------------------------------------#
+        
         self.anchors_mask   = anchors_mask
 
     def decode_box(self, inputs,grid_x):
         outputs = []
         for i, input in enumerate(inputs):
-            #-----------------------------------------------#
-            #   输入的input一共有三个，他们的shape分别是
-            #   batch_size, 255, 13, 13
-            #   batch_size, 255, 26, 26
-            #-----------------------------------------------#
+            
             batch_size      = input.size(0)
             input_height    = input.size(2)
             input_width     = input.size(3)
 
-            #-----------------------------------------------#
-            #   输入为416x416时
-            #   stride_h = stride_w = 32、16、8
-            #-----------------------------------------------#
+           
             stride_h = self.input_shape[0] / input_height
             stride_w = self.input_shape[1] / input_width
-            # #-------------------------------------------------#
-            # #   此时获得的scaled_anchors大小是相对于特征层的
-            # #-------------------------------------------------#
-            # # print(self.anchors)
+           
             # scaled_anchors = []
             # for anchor_index in self.anchors_mask[i]:
             #     # print(anchor_index,self.anchors)
@@ -54,68 +41,40 @@ class DecodeBox():
             #     scaled_anchors.append([anchor_width/stride_w,anchor_height/stride_h])
             scaled_anchors = [(anchor_width / stride_w, anchor_height / stride_h) for anchor_width, anchor_height in self.anchors[self.anchors_mask[i]]]
 
-            #-----------------------------------------------#
-            #   输入的input一共有三个，他们的shape分别是
-            #   batch_size, 3, 13, 13, 85
-            #   batch_size, 3, 26, 26, 85
-            #-----------------------------------------------#
+           
             prediction = input.view(batch_size, len(self.anchors_mask[i]),
                                     self.bbox_attrs, input_height, input_width).permute(0, 1, 3, 4, 2).contiguous()
 
             #-----------ok
 
-            #-----------------------------------------------#
-            #   先验框的中心位置的调整参数
-            #-----------------------------------------------#
+            
             x = torch.sigmoid(prediction[..., 0])  
             y = torch.sigmoid(prediction[..., 1])
-            # #-----------------------------------------------#
-            # #   先验框的宽高调整参数
-            # #-----------------------------------------------#
+           
             w = prediction[..., 2]
             h = prediction[..., 3]
-            # #-----------------------------------------------#
-            # #   获得置信度，是否有物体
-            # #-----------------------------------------------#
+           
             conf        = torch.sigmoid(prediction[..., 4])
-            # #-----------------------------------------------#
-            # #   种类置信度
-            # #-----------------------------------------------#
+            
             pred_cls    = torch.sigmoid(prediction[..., 5:])
 
-            # FloatTensor = torch.cuda.FloatTensor if x.is_cuda else torch.FloatTensor
-            # LongTensor  = torch.cuda.LongTensor if x.is_cuda else torch.LongTensor
+           
             FloatTensor = torch.FloatTensor
             LongTensor  = torch.LongTensor
 
-            #----------------------------------------------------------#
-            #   生成网格，先验框中心，网格左上角 
-            #   batch_size,3,13,13
-            #----------------------------------------------------------#
-            # test = torch.linspace(0, input_width - 1, input_width)
-            # print(batch_size,len(self.anchors_mask[i]))
+            
             p_grid_x = grid_x[i]
             print(p_grid_x.shape,x.shape,y.shape)
             p_grid_x = p_grid_x.view(x.shape).type(FloatTensor)
             p_grid_y = p_grid_x.view(y.shape).type(FloatTensor)
-            # grid_x = torch.linspace(0, input_width - 1, input_width).repeat(input_height, 1).repeat(
-            #     batch_size * len(self.anchors_mask[i]), 1, 1).view(x.shape).type(FloatTensor)
-            # grid_y = torch.linspace(0, input_height - 1, input_height).repeat(input_width, 1).t().repeat(
-            #     batch_size * len(self.anchors_mask[i]), 1, 1).view(y.shape).type(FloatTensor)
-
-        #     #----------------------------------------------------------#
-        #     #   按照网格格式生成先验框的宽高
-        #     #   batch_size,3,13,13
-        #     #----------------------------------------------------------#
+           
             anchor_w_b = FloatTensor(scaled_anchors).index_select(1, LongTensor([0]))
             anchor_h_b = FloatTensor(scaled_anchors).index_select(1, LongTensor([1]))
 
-            # anchor_wf = anchor_w_b.repeat(1, 1, input_height * input_width).view(w.shape)
-            # print('orignal',anchor_wf,anchor_wf.shape)
-            # print('1',anchor_w_b,anchor_w_b.shape)
+            
             anchor_w_b = anchor_w_b.view(1,3,1,1)
             anchor_h_b = anchor_h_b.view(1,3,1,1)
-            # print('1-2',anchor_w_b,anchor_w_b.shape)
+            
             anchor_w_b1 = anchor_w_b.clone()
             anchor_h_b1 = anchor_h_b.clone()
 
@@ -131,38 +90,30 @@ class DecodeBox():
                 anchor_h = torch.cat([anchor_h,anchor_h_b1],axis=3)
             
             
-            # print('2',anchor_w,anchor_w.shape)
-            # anchor_w = anchor_w.repeat(batch_size, 1).repeat(1, 1, input_height * input_width).view(w.shape)
-            # anchor_h = anchor_h.repeat(batch_size, 1).repeat(1, 1, input_height * input_width).view(h.shape)
-
-        #     #----------------------------------------------------------#
-        #     #   利用预测结果对先验框进行调整
-        #     #   首先调整先验框的中心，从先验框中心向右下角偏移
-        #     #   再调整先验框的宽高。
-        #     #----------------------------------------------------------#
-
-            # pred_boxes = x.data + p_grid_x
-            # pred_boxes = pred_boxes.view()
-            pred_boxes          = FloatTensor(prediction[..., :4].shape)
             
+
+            #-------------- not sure-------------------
+            pred_boxes = x.data + p_grid_x
+            # print(pred_boxes.shape)
+            pred_boxes = pred_boxes.reshape(1,3,input_height,input_width,1)
+            pred_boxes_b = y.data + p_grid_y
+            pred_boxes_b = pred_boxes_b.reshape(1,3,input_height,input_width,1)
+            pred_boxes = torch.cat([pred_boxes,pred_boxes_b],axis=4)
+            pred_boxes_b = torch.exp(w.data) * anchor_w
+            pred_boxes_b = pred_boxes_b.reshape(1,3,input_height,input_width,1)
+            pred_boxes = torch.cat([pred_boxes,pred_boxes_b],axis=4)
+            pred_boxes_b = torch.exp(h.data) * anchor_h
+            pred_boxes_b = pred_boxes_b.reshape(1,3,input_height,input_width,1)
+            pred_boxes = torch.cat([pred_boxes,pred_boxes_b],axis=4)
+            pred_boxes = pred_boxes.type(FloatTensor)
             
-            pred_boxes[..., 0]  = x.data + p_grid_x
-            print('orignal',pred_boxes,pred_boxes.shape)
-            # pred_boxes[..., 1]  = y.data + p_grid_y
-            # pred_boxes[..., 2]  = torch.exp(w.data) * anchor_w
-            # pred_boxes[..., 3]  = torch.exp(h.data) * anchor_h
+            _scale = torch.Tensor([input_width, input_height, input_width, input_height]).type(FloatTensor)
+            output = torch.cat((pred_boxes.view(batch_size, -1, 4) / _scale,
+                                conf.view(batch_size, -1, 1), pred_cls.view(batch_size, -1, self.num_classes)), -1)
+            outputs.append(output.data)
+            
+        return outputs
 
-        #     #----------------------------------------------------------#
-        #     #   将输出结果归一化成小数的形式
-        #     #----------------------------------------------------------#
-        #     _scale = torch.Tensor([input_width, input_height, input_width, input_height]).type(FloatTensor)
-        #     output = torch.cat((pred_boxes.view(batch_size, -1, 4) / _scale,
-        #                         conf.view(batch_size, -1, 1), pred_cls.view(batch_size, -1, self.num_classes)), -1)
-        #     outputs.append(output.data)
-        # return outputs
-
-        pred_boxes = pred_boxes.clone()
-        return pred_boxes
 
 #-------------------------------------------------#
 #   卷积块 -> 卷积 + 标准化 + 激活函数
@@ -198,9 +149,7 @@ class Upsample(nn.Module):
         x = self.upsample(x)
         return x
 
-#---------------------------------------------------#
-#   最后获得yolov4的输出
-#---------------------------------------------------#
+
 def yolo_head(filters_list, in_filters):
     m = nn.Sequential(
         BasicConv(in_filters, filters_list[0], 3),
