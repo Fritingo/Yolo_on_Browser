@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from torchvision.ops import nms
 
 from nets.CSPdarknet53_tiny import darknet53_tiny
 from nets.attention import cbam_block, eca_block, se_block, CA_Block
@@ -114,6 +115,80 @@ class DecodeBox():
             
         return outputs
 
+    def non_max_suppression(self, prediction, num_classes, input_shape, image_shape, letterbox_image, conf_thres=0.5, nms_thres=0.4):
+       
+        print('hey',type(prediction),type(prediction[0][0]))
+        box_corner          = prediction.new(prediction.shape)
+        print('bbox',box_corner.shape)
+        box_corner0 = box_corner[:, :, 0].clone()
+        box_corner0 = box_corner0 - prediction[:, :, 2] / 2
+        box_corner0 = box_corner0.view(1,2535,1)
+        box_corner1 = box_corner[:, :, 1].clone()
+        box_corner1 = box_corner1 - prediction[:, :, 3] / 2
+        box_corner1 = box_corner1.view(1,2535,1)
+        box_corner2 = box_corner[:, :, 0].clone()
+        box_corner2 = box_corner2 + prediction[:, :, 2] / 2
+        box_corner2 = box_corner2.view(1,2535,1)
+        box_corner3 = box_corner[:, :, 1].clone()
+        box_corner3 = box_corner3 + prediction[:, :, 3] / 2
+        box_corner3 = box_corner3.view(1,2535,1)
+        print(box_corner0.shape)
+        # box_corner = torch.cat([box_corner0,box_corner1],axis=2)
+
+        box_corner = torch.cat([box_corner0,box_corner1,box_corner2,box_corner3],axis=2)
+
+        print('bbox2',box_corner.shape)
+
+        prediction = prediction[:, :, 4:]
+        prediction = torch.cat([box_corner,prediction],axis=2)
+        print(prediction.shape)
+
+ 
+
+       
+
+        output = [None for _ in range(len(prediction))]
+
+        
+        max_detections = 0
+        for i, image_pred in enumerate(prediction):
+
+            class_conf, class_pred = torch.max(image_pred[:, 5:5 + num_classes], 1, keepdim=True)
+
+         
+            conf_mask = (image_pred[:, 4] * class_conf[:, 0] >= conf_thres).squeeze()
+
+       
+            image_pred = image_pred[conf_mask]
+            class_conf = class_conf[conf_mask]
+            class_pred = class_pred[conf_mask]
+            print('there',image_pred.size(0))
+            if image_pred.size(0) == 0:
+                return -1
+            
+            detections = torch.cat([image_pred[:, :5], class_conf.float(), class_pred.float()], 1).type(torch.FloatTensor)
+            
+            unique_labels = detections[:, -1].cpu().unique()
+
+         
+
+            for c in unique_labels:
+                
+                detections_class = detections[detections[:, -1] == c]
+
+            
+                keep = nms(
+                    detections_class[:, :4],
+                    detections_class[:, 4] * detections_class[:, 5],
+                    nms_thres
+                )
+                max_detections = detections_class[keep]
+                
+           
+                output = max_detections
+        output = torch.Tensor(output).type(torch.FloatTensor)
+        return box_corner
+
 
 #-------------------------------------------------#
 #   卷积块 -> 卷积 + 标准化 + 激活函数
@@ -219,9 +294,20 @@ class YoloBody(nn.Module):
 
         #----bbox------------------
         bboxes = self.bbox.decode_box([out0,out1],self.grid_x)
+
+        print('yee',type(bboxes),len(bboxes),bboxes[0].shape)
+        bboxes = torch.cat(bboxes,axis=1)
+        # ---------------is tensor---------------
+        # bboxes = self.bbox.non_max_suppression(torch.cat(bboxes, 1), 20, [416,416], 
+        #                 [416,416], False, conf_thres = 0.5, nms_thres = 0.3)
         
+        # print('all',bboxes,type(bboxes))
+        # for i in range(bboxes.shape[0]):
+        #     print(i,bboxes[i],type(bboxes[i]))
+        bboxes = bboxes
+        ans = bboxes
         # print(len(bboxes),bboxes[0].shape,bboxes[1].shape)
-        return bboxes
+        return ans
 
 if __name__ == '__main__':
     x = torch.randn(4*416*416)
