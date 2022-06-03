@@ -25,6 +25,7 @@ function backToTop() {
 $backToTopBtn.addEventListener("click", backToTop);
 
 $getDuck.addEventListener("click", () => {
+  console.log('click');
   document.getElementById("Duck").removeAttribute("style");
 });
 
@@ -33,6 +34,7 @@ $getPanda.addEventListener("click", () => {
 });
 
 $getZebra.addEventListener("click", () => {
+  console.log('click');
   document.getElementById("Zebra").removeAttribute("style");
 });
 
