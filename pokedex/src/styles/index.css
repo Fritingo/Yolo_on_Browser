@@ -1,0 +1,113 @@
+@import url('./global.css');
+@import url('./header.css');
+
+/*card */
+
+.poke-list {
+  width: 100%;
+  max-width: 1004px;
+  margin: 2rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.load-more {
+  margin: 0 auto;
+  padding: .5rem 1rem;
+  display: block;
+  border: 0;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.back-to-top {
+  width: 80px;
+  height: 80px;
+  border: 0;
+  background-color: #fff;
+  border-radius: 50%;
+  font-size: 2rem;
+  position: fixed;
+  bottom: -50px;
+  right: 50px;
+  cursor: pointer;
+  opacity: 0;
+  outline: 0;
+}
+
+.card-container {
+  width: 184px;
+  height: 147px;
+  margin-right: 21px;
+  margin-bottom: 32px;
+  background-color: var(--white);
+  border-radius: 5px;
+  position: relative;
+  transition: all .4s;
+}
+
+
+.card-container:hover {
+  transform: translateY(-5px);
+}
+
+.card-container:nth-child(5n) {
+  margin-right: 0;
+}
+
+
+.card-container img {
+  width: 114px;
+  height: 114px;
+  display: block;
+  margin: 0 auto;
+}
+
+.card-container .poke-number {
+  color: #000;
+  position: absolute;
+  top: 4px;
+  right: 15px;
+}
+
+.card-container .poke-name {
+  text-align: center;
+  color: var(--black);
+  font-size: 16px;
+}
+
+.poke-types {
+  list-style: none;
+  position: absolute;
+  bottom: 11px;
+  right: 15px;
+}
+
+.poke-types li {
+  width: 20px;
+  height: 20px;
+}
+
+.poke-list li img  {
+  max-width: 100%;
+  height: 20px;
+}
+
+ @media (max-width: 993px) {
+  .card-container,
+  .card-container:nth-child(5n)  {
+    width: 160px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+} 
+
+
+@media (max-width: 320px) {
+  .card-container,
+  .card-container:nth-child(5n) {
+    width: 80%;
+    margin-right: 0;
+  } 
+}
