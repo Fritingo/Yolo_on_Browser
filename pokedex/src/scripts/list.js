@@ -24,20 +24,55 @@ function backToTop() {
 
 $backToTopBtn.addEventListener("click", backToTop);
 
+$getDuck.addEventListener("click", () => {
+  document.getElementById("Duck").removeAttribute("style");
+});
+
 $getPanda.addEventListener("click", () => {
   document.getElementById("Panda").removeAttribute("style");
 });
 
+$getZebra.addEventListener("click", () => {
+  document.getElementById("Zebra").removeAttribute("style");
+});
+
+$getTiger.addEventListener("click", () => {
+  document.getElementById("Tiger").removeAttribute("style");
+});
+
 $getKoala.addEventListener("click", () => {
   document.getElementById("Koala").removeAttribute("style");
+});
+$getLion.addEventListener("click", () => {
+  document.getElementById("Lion").removeAttribute("style");
+});
+
+$getFish.addEventListener("click", () => {
+  document.getElementById("Fish").removeAttribute("style");
 });
 
 $getPenguin.addEventListener("click", () => {
   document.getElementById("Penguin").removeAttribute("style");
 });
 
+$getSnail.addEventListener("click", () => {
+  document.getElementById("Snail").removeAttribute("style");
+});
+
+$getChicken.addEventListener("click", () => {
+  document.getElementById("Chicken").removeAttribute("style");
+});
+
 $getRabbit.addEventListener("click", () => {
   document.getElementById("Rabbit").removeAttribute("style");
+});
+
+$getPig.addEventListener("click", () => {
+  document.getElementById("Pig").removeAttribute("style");
+});
+
+$getMonkey.addEventListener("click", () => {
+  document.getElementById("Monkey").removeAttribute("style");
 });
 
 $getDog.addEventListener("click", () => {
