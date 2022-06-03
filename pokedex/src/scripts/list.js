@@ -43,6 +43,7 @@ $getTiger.addEventListener("click", () => {
 $getKoala.addEventListener("click", () => {
   document.getElementById("Koala").removeAttribute("style");
 });
+
 $getLion.addEventListener("click", () => {
   document.getElementById("Lion").removeAttribute("style");
 });
