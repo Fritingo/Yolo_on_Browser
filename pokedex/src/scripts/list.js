@@ -30,6 +30,7 @@ $getDuck.addEventListener("click", () => {
 });
 
 $getPanda.addEventListener("click", () => {
+  console.log('click');
   document.getElementById("Panda").removeAttribute("style");
 });
 
