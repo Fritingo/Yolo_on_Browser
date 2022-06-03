@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta charset="utf-8">
+        <title>Alexnet_web</title>
+        <script src="iottalk/jquery.js" type="text/javascript"></script>
+        <script src="iottalk/csmapi.js"></script>
+        <script src="iottalk/dan.js"></script>
+        <script src="iottalk/dai.js"></script>
+        <script src="iottalk/ida.js"></script>
+    </header>
+    <body>
+        <p>this page can use your deivce(smartphone or PC) inference Alexnet model with CIFAR100</p>
+        <p>you select you want predict photo</p>
+        <!-- load file -->
+        <input type="file" id="fileElem" multiple="false">
+        
+        <p>or you can take one immedicately</p>
+        
+        <input type="submit" onclick="take_picture();" value="take picture">
+        
+        
+        
+        <div id="container">
+
+            <div class="select">
+                <label for="videoSource">Video source: </label><select id="videoSource"></select>
+            </div>
+        
+            <video id="video" playsinline autoplay></video>
+
+            <p>predict picture</p>
+            <canvas></canvas>
+            
+        
+            <!-- <img src=""> -->
+            
+        </div>
+        <input type="submit" onclick="updatePredictions();" value="inference">
+        <p id = "ans">waiting picture</p>
+    </body>
+</html>
+
+
+<script src="https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+
+<script src="js/labels.js" async></script>
+<script src="js/main.js" async></script>
+
