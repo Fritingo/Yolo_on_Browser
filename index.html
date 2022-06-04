@@ -2,46 +2,278 @@
 <html>
     <header>
         <meta charset="utf-8">
-        <title>Alexnet_web</title>
+        <title>Animal etector</title>
         <script src="./iottalk/jquery.js" type="text/javascript"></script>
         <script src="./iottalk/csmapi.js"></script>
         <script src="./iottalk/dan.js"></script>
         <script src="./iottalk/dai.js"></script>
         <script src="./iottalk/ida.js"></script>
+        <link href="css/demo_page.css" rel="stylesheet" type="text/css"/>
+        <link
+        rel="icon"
+        type="image/gif/jpg"
+        href="https://image.winudf.com/v2/image/bmV0LmFudGFmdW5ueS5wb2tlbW9uZ28uZ3VpZGUuZXhwZXJ0X2ljb25fMTUwNjAyMjk4NF8wOTc/icon.png?w=170&fakeurl=1"
+      />
+       <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+        rel="stylesheet"
+      />
     </header>
     <body>
-        <p>this page can use your deivce(smartphone or PC) inference Alexnet model with CIFAR100</p>
-        <p>you select you want predict photo</p>
         <!-- load file -->
-        <input type="file" id="fileElem" multiple="false">
-        
-        <p>or you can take one immedicately</p>
-        
-        <input type="submit" onclick="take_picture();" value="take picture">
-        
-        
-        
-        <div id="container">
+        <!-- <input type="file" id="fileElem" multiple="false"> -->
 
-            <div class="select">
-                <label for="videoSource">Video source: </label><select id="videoSource"></select>
-            </div>
-        
-            <video id="video" playsinline autoplay></video>
+        <div id="StefTastan">
+            <!-- pokeball container -->
+			<div id="moving-container">
+				<div id="pokeball-container">
+				<!-- pokeball -->
+					<div id="pokeball">
+						<div class="pokeball-details"></div>
+					</div>
 
-            <p>predict picture</p>
-            <canvas></canvas>
-            
-        
-            <!-- <img src=""> -->
-            
+				</div>				
+			</div>
         </div>
-        <input type="submit" onclick="updatePredictions();" value="inference">
-        <p id = "ans">waiting picture</p>
-    </body>
+        <p>POKEANIMAL DETECTOR</p>
+        <p>This page can use your deivce(smartphone or PC) inference model with animal dataset.</p>
+        <p>You can select a picture you'd like to detect</p>
+        <p>or you can take one immediately</p>
+        
+    <!---DETECTOR--->
+    <div id="pokedex">
+        <!-- Left Panel -->
+        <div id="left-panel">
+        <!-- Top lights -->
+        <div class="left-top-container">
+            <svg height="100" width="680" class="left-svg">
+            <polyline
+                points="0,75 70,75 90,38 224,38 680,38"
+                style="fill: none; stroke: black; stroke-width: 3"
+            />
+            </svg>
+            <div class="lights-container">
+            <div class="big-light-boarder">
+                <div class="big-light blue">
+                <div class="big-dot light-blue"></div>
+                </div>
+            </div>
+            <div class="small-lights-container">
+                <div class="small-light red">
+                <div class="dot light-red"></div>
+                </div>
+                <div class="small-light yellow">
+                <div class="dot light-yellow"></div>
+                </div>
+                <div class="small-light green">
+                <div class="dot light-green"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Center Screen -->
+        <div class="screen-container">
+            <div class="screen">
+            <div class="top-screen-lights">
+                <div class="mini-light red"></div>
+                <div class="mini-light red"></div>
+            </div>
+            <!-- <div id="main-screen"></div> -->
+            <video id="video" playsinline autoplay></video>
+            <div id="container">
+                <!-- <p>predict picture</p> -->
+                <canvas class="canvas"></canvas> 
+            </div>
+            <!-- <canvas></canvas>  -->
+            <div class="bottom-screen-lights">
+                <div class="small-light red">
+                <div class="dot light-red"></div>
+                </div>
+                <div class="burger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Bottom Buttons -->
+        <div class="buttons-container">
+            <div class="upper-buttons-container">
+            <!-- <div class="big-button"></div> -->
+            <div class="long-buttons-container">
+                <div class="long-button red"></div>
+                <div class="long-button light-blue"></div>
+            </div>
+            </div>
+            <div class="nav-buttons-container">
+            <div class="dots-container">
+                <div>.</div>
+                <div>.</div>
+            </div>
+            <div class="green-screen">
+                <span id="name-screen"><p id = "ans">waiting for inference...</p></span>
+            </div>
+            <div class="right-nav-container">
+                <div class="nav-button">
+                <div class="nav-center-circle"></div>
+                <div class="nav-button-vertical"></div>
+                <div class="nav-button-horizontal">
+                    <div class="border-top"></div>
+                    <div class="border-bottom"></div>
+                </div>
+                </div>
+                <div class="bottom-right-nav-container">
+                <div class="small-light red">
+                    <div class="dot light-red"></div>
+                </div>
+                <div class="dots-container">
+                    <div class="black-dot">.</div>
+                    <div class="black-dot">.</div>
+                    <div class="black-dot">.</div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End of Left panel -->
+
+        <!-- Right-panel -->
+        <div id="right-panel">
+
+        <!-- Top screen -->
+        <div class="top-screen-container">
+            <div id="about-screen" class="right-panel-screen">
+            Inferenced animal info:
+            </div>
+        </div>
+        <!-- Blue Buttons -->
+        <div class="square-buttons-container">
+            <div class="blue-squares-container">
+            <div class="blue-square"></div>
+            <div class="blue-square"></div>
+            <div class="blue-square"></div>
+            <div class="blue-square"></div>
+            <div class="blue-square"></div>
+            <div class="blue-square"></div>
+            <div class="blue-square"></div>
+            <div class="blue-square"></div>
+            <div class="blue-square"></div>
+            <div class="blue-square"></div>
+            </div>
+        </div>
+        <!-- Center Buttons -->
+        <div class="center-buttons-container">
+            <div class="center-left-container">
+            <div class="small-reds-container">
+                <div class="small-light red">
+                <div class="dot light-red"></div>
+                </div>
+                <div class="small-light red">
+                <div class="dot light-red"></div>
+                </div>
+            </div>
+            <!--Take picture & inference-->
+            <div class="white-squares-container">
+                <div id="type-screen" class="select right-panel-screen">
+                    <label for="videoSource">Video source: </label><select id="videoSource"></select>
+                </div>
+                <!-- <input type="submit" id="take-picture-btn" onclick="take_picture();" value="take picture"> -->
+            </div>
+            <div class="white-squares-container">
+                <!-- <input type="submit" id="inference-btn" onclick="updatePredictions();" value="inference"> -->
+                <!-- load file -->
+                <input type="file" id="fileElem" multiple="false">
+            </div>
+            </div>
+            <div class="center-right-container">
+            <div class="thin-buttons-container">
+                <div class="thin-button"></div>
+                <div class="thin-button"></div>
+            </div>
+            <div class="yellow-button yellow">
+                <div class="big-dot light-yellow"></div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Bottom screens -->
+        <div class="bottom-screens-container">
+            <!-- <div id="type-screen" class="right-panel-screen">grass</div> -->
+            <input type="submit" id="take-picture-btn" onclick="take_picture();" value="streaming">
+            <input type="submit" id="inference-btn" onclick="updatePredictions();" value="inference">
+            <!-- <div id="id-screen" class="right-panel-screen">#1</div> -->
+        </div>
+        </div>
+    </div>
+    
+
+    
+    <!---POKEMON--->
+    <div id="StefTastan">
+
+        <!-- charmander -->
+        <div id="charmander">
+            <div id="arms"></div>
+            <div id="feet"></div>
+            <div id="body">
+                <div id="eyes"></div>
+                <div id="pupils"></div>
+                <div id="nostrils"></div>
+                <div id="mouth"></div>
+                <div id="belly"></div>
+            </div>
+            <div id="tail"></div>
+            <div id="flame"></div>
+        </div>
+
+        <!-- bulbasaur -->
+        <div id="bulbasaur">
+            <div id="head">
+                <div id="eyes"></div>
+                <div id="pupils"></div>
+                <div id="nostrils"></div>
+                <div class="mouth"></div>
+            </div>
+            <div class="ears"></div>
+            <div id="body">
+                <div class="spots spot1"></div>
+                <div class="spots spot2"></div>
+                <div class="spots spot3"></div>
+            </div>
+            <div id="front-feet"></div>
+            <div id="back-feet"></div>
+            <div id="bulb"></div>
+        </div>
+
+        <!-- squirtle -->
+        <div id="squirtle">
+            <div id="arms"></div>
+            <div id="feet"></div>
+            <div id="head">
+                <div id="eyes"></div>
+                <div id="pupils"></div>
+                <div id="nostrils"></div>
+                <div id="mouth"></div>
+            </div>
+            <div id="body"></div>
+            <div id="shell"></div>
+            <div id="tail"></div>
+        </div>
+
+    </div>
+    <!---POKEMON--->
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="js/labels.js" async></script>
+<script src="js/main.js" async></script>
+
 </html>
-
-
 <script src="https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>

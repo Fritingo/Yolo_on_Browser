@@ -1,0 +1,1471 @@
+body{
+    font-family: 'Press Start 2P', cursive, Jaldi,Helvetica,"微軟正黑體",sans-serif;
+    width:100%;
+    background-color:#f0e3cd;
+    height: 1080px;
+    font-size: 12px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+#test{
+    
+    min-height: 250px;
+    padding: 20px 0px;
+    display: block;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: wheat;
+    width: 100%;
+
+}
+#container{
+    height:416px;
+    width:416px;
+}
+#take-picture-btn ,#inference-btn{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    z-index: 99;
+    width: 80%;
+    margin-left: 10px;
+    height: 40%;
+    border-radius: 5px;
+    border: black 2px solid;
+    background-color: #ffffff;
+    box-shadow: inset -2px -2px grey;
+}
+#videoSource{
+    z-index: 99;
+    width: 80%;
+    height: 60%;
+}
+#fileElem{
+    z-index: 99;
+    margin-left: 13px;
+    width: 100%;
+    height: 80%;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+}
+/*
+* DETECTOR
+*/
+:root {
+    --main-bg-color: #fe0065;
+    --secondary-bg-color: #f2f2f2;
+    --main-screen-bg-color: #98cb98;
+    --secondary-screen-bg-color: #9e9d9d;
+    --main-buttons-color: #585858;
+    --square-buttons-color: #7ca9f7;
+  }
+  
+  .red {
+    background-color: #ff0000;
+  }
+  .yellow {
+    background-color: #fecb65;
+  }
+  .green {
+    background-color: #32cb65;
+  }
+  .blue {
+    background-color: #3298cb;
+  }
+  
+  .light-blue {
+    background-color: #85bdfe;
+    margin-left: 10px;
+  }
+  .light-red {
+    background-color: #fe98cb;
+  }
+  .light-yellow {
+    background-color: #fefecb;
+  }
+  .light-green {
+    background-color: #98fe00;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  .logo {
+    justify-self: start;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .search-container {
+    width: 100%;
+    height: 80px;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* poke-ball */
+  .ball-container {
+    overflow: hidden;
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: relative;
+    animation: shake 1.5s ease-in infinite;
+    animation-play-state: paused;
+  }
+  
+  @keyframes shake {
+    0% {
+      transform: rotate(5deg);
+    }
+    5% {
+      transform: rotate(-5deg);
+    }
+    10% {
+      transform: rotate(5deg);
+    }
+    15% {
+      transform: rotate(-5deg);
+    }
+    20% {
+      transform: rotate(5deg);
+    }
+    25% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .ball-container:hover {
+    cursor: pointer;
+    animation-play-state: running;
+  }
+  .upper-half-ball {
+    position: absolute;
+    width: 100%;
+    height: 42%;
+    background-color: var(--main-bg-color);
+  }
+  
+  .bottom-half-ball {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 42%;
+    background-color: var(--secondary-bg-color);
+  }
+  
+  .center-ball {
+    background-color: white;
+    width: 20%;
+    height: 20%;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .center-line {
+    background: black;
+    height: 100%;
+    width: 100%;
+  }
+  
+  input {
+    text-align: center;
+    height: 40px;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  /* poke-dex */
+  #pokedex {
+    /* height: 342px; */
+    /* width: calc(228px * 2); */
+    height: 784px;
+    width: calc(525px * 2);
+    display: flex;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    #pokedex {
+      width: 90%;
+    }
+  }
+  
+  /* LEFT PANEL */
+  .left-top-container{
+    height: 60%;
+    width: 65%;
+
+  }
+
+
+
+  #left-panel {
+    background-color: var(--main-bg-color);
+    box-sizing: border-box;
+    height: 100%;
+    width: 65%;
+    display: table;
+    /* grid-template-rows: 23% 50% 27%;
+    5% 82% 18% */
+    grid-template-rows: 5% 82% 18%;
+    border: solid black 3px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 7px;
+  }
+  /* Top Lights */
+  
+  .lights-container {
+    position: relative;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  
+  .left-svg {
+    position: absolute;
+    z-index: +5;
+  }
+  
+  .big-light-boarder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    height: 60px;
+    width: 60px;
+    border: solid black;
+    border-radius: 50%;
+    background-color: white;
+  }
+  
+  .big-light {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: solid black;
+  }
+  
+  .big-dot {
+    height: 15px;
+    width: 15px;
+    position: relative;
+    top: 7px;
+    left: 10px;
+    border-radius: 50%;
+  }
+  
+  .small-lights-container {
+    margin-left: 15px;
+    margin-top: 10px;
+    width: 70px;
+    height: 100%;
+    display: flex;
+    align-self: start;
+    justify-content: space-around;
+  }
+  
+  .small-light {
+    border: solid black;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+  .dot {
+    height: 5px;
+    width: 5px;
+    position: relative;
+    top: 3px;
+    left: 3px;
+    border-radius: 50%;
+  }
+  
+  /* Center Screen */
+  
+  .screen-container {
+    width: 100%;
+    height: 75%;
+    margin-top: 25px;
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+  }
+  
+  .screen {
+    width: 80%;
+    height: 90%;
+    /* width: 416px;
+    height: 416px; */
+    padding: 10px;
+    border: solid black;
+    border-radius: 0 0 0 12%;
+    display: grid;
+    grid-template-rows: 5% 82% 18%;
+    background-color: white;
+  }
+
+  .canvas{
+    margin-left: 14%;
+    margin-top: 3%;
+  }
+  
+  .top-screen-lights {
+    width: 50%;
+    height: 1%;
+    margin-top: 12px;
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #video{
+    display: none;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .mini-light {
+    border: solid black 1px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 7px;
+  }
+  
+  #main-screen {
+    height: 100%;
+    width: 80%;
+    justify-self: center;
+    background-color: var(--main-screen-bg-color);
+    border: solid black 2px;
+    border-radius: 5%;
+    background-image: url(https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .bottom-screen-lights {
+    display: flex;
+    margin-top: 35px;
+    width: 88%;
+    height: 40px;
+    justify-self: center;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .bottom-screen-lights .small-light {
+    border: solid black 2px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .bottom-screen-lights .dot {
+    height: 4px;
+    width: 4px;
+    top: 2.5px;
+    left: 2px;
+  }
+  
+  .line {
+    width: 18px;
+    height: 2px;
+    background-color: black;
+    margin-top: 2px;
+  }
+  
+  /*Bottom buttons  */
+  
+  .buttons-container {
+    display: grid;
+    grid-template-rows: 40% 60%;
+  }
+  
+  .big-button {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: solid 2px black;
+    background-color: var(--main-buttons-color);
+    margin-left: 7px;
+  }
+  
+  .long-button {
+    width: 55px;
+    height: 5px;
+    margin-top: auto;
+    border-radius: 50px;
+    border: 2px solid black;
+  }
+  
+  .green-screen {
+    width: 100%;
+    height: 60%;
+    border-radius: 5px;
+    border: solid black 2px;
+    background-color: #3ab47d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #name-screen {
+    width: 100%;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    font-size: 8.5px;
+    overflow-wrap: break-word;
+  }
+  
+  .circle {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    border: 1px solid black;
+  }
+  
+  .upper-buttons-container {
+    display: flex;
+    align-items: top;
+    justify-content: start;
+  }
+  
+  .long-buttons-container {
+    display: flex;
+    width: 100px;
+    height: 30px;
+    justify-content: space-around;
+    margin-left: 37px;
+  }
+  
+  .nav-buttons-container {
+    display: grid;
+    grid-template-columns: 14% 70% 16%;
+  }
+  
+  .dots-container {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-self: end;
+    justify-content: left;
+    font-size: x-large;
+  }
+  
+  .right-nav-container {
+    position: relative;
+    top: -30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nav-button {
+    height: 62px;
+    width: 62px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nav-button-vertical {
+    position: absolute;
+    transform: rotate(90deg);
+    background-color: var(--main-buttons-color);
+    border-radius: 5px;
+    height: 12px;
+    width: 65px;
+    border: 3px solid black;
+  }
+  
+  .nav-button-horizontal {
+    position: absolute;
+    background-color: var(--main-buttons-color);
+    border-radius: 5px;
+    height: 12px;
+    width: 65px;
+    border: 3px solid black;
+  }
+  
+  .nav-center-circle {
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    border: solid black 2px;
+    z-index: +2;
+  }
+  
+  .border-top {
+    border-top: 3.5px solid var(--main-buttons-color);
+    position: absolute;
+    top: -3px;
+    left: 25.5px;
+    right: 25.5px;
+  }
+  .border-bottom {
+    border-top: 3.5px solid var(--main-buttons-color);
+    position: absolute;
+    top: 11.5px;
+    left: 25.5px;
+    right: 25.5px;
+  }
+  
+  .bottom-right-nav-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .bottom-right-nav-container .dots-container {
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .bottom-right-nav-container .small-light {
+    border: solid black 2px;
+    width: 7px;
+    height: 7px;
+    margin-right: 3px;
+    margin-top: 10px;
+  }
+  
+  .bottom-right-nav-container .dot {
+    height: 2.5px;
+    width: 2.5px;
+    top: 1.5px;
+    left: 1.5px;
+  }
+  
+  /* RIGHT PANEL */
+  
+  #right-panel {
+    background-color: var(--main-bg-color);
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+    width: 35%;
+    display: grid;
+    grid-template-rows: 60% 5% 20% 25%;
+    border-bottom: solid black 3px;
+    border-bottom-right-radius: 10px;
+  }
+  #right-panel::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    bottom: 0;
+    width: 100%;
+    height: 265px;
+    border-right: solid black 3px;
+    border-bottom-right-radius: 7px;
+  }
+  /* top screen */
+  .top-screen-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+  }
+  .right-panel-screen {
+    font-family: 'Press Start 2P', cursive;
+    width: 80%;
+    height: 90%;
+    background-color: var(--secondary-screen-bg-color);
+    border: solid black 2px;
+    border-radius: 4px;
+    font-size: xx-small;
+    padding-left: 2px;
+    padding-right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    padding-left: 8px;
+    line-height: 2;
+  }
+  
+  /* square buttons grid */
+  .square-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .blue-squares-container {
+    width: 83.5%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+  .blue-square {
+    border-radius: 2px;
+    border: black 1.5px solid;
+    background-color: var(--square-buttons-color);
+    box-shadow: inset -2px -2px #3298cb;
+  }
+  
+  /* center buttons */
+  .center-buttons-container {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-around;
+  }
+  
+  .center-left-container {
+    display: grid;
+  }
+  
+  .small-reds-container {
+    display: flex;
+    margin-left: 20px;
+    align-items: center;
+    justify-content: start;
+  }
+  .small-reds-container .small-light {
+    border: solid black 2px;
+    width: 17px;
+    height: 17px;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  .small-reds-container .dot {
+    height: 2.5px;
+    width: 2.5px;
+    top: 1px;
+    left: 1px;
+  }
+  
+  .white-squares-container {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .white-square {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: black 2px solid;
+    background-color: #ffffff;
+    box-shadow: inset -2px -2px gray;
+  }
+  
+  .center-right-container {
+    display: grid;
+  }
+  
+  .thin-buttons-container {
+    display: flex;
+    margin-right: 10px;
+    justify-content: space-between;
+  }
+  
+  .thin-button {
+    width: 60px;
+    height: 5px;
+    border: 2px solid black;
+    background-color: var(--main-buttons-color);
+    margin-left: 10px;
+  }
+  .yellow-button {
+    justify-self: end;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: solid 2px black;
+    margin-right: 20px;
+  }
+  
+  .yellow-button .big-dot {
+    height: 10px;
+    width: 10px;
+    position: relative;
+    top: 7px;
+    left: 5px;
+    border-radius: 50%;
+  }
+  
+  /* bottom screens */
+  
+  .bottom-screens-container {
+    display: flex;
+    justify-content: space-around;
+    /* align-items: center; */
+    margin-top: 40px;
+  }
+
+  .bottom-screens-container .right-panel-screen {
+    width: 40%;
+    height: 35%;
+  }
+  
+  .mention {
+    margin-top: 10px;
+    width: 150px;
+    display: grid;
+    text-align: right;
+    font-size: 10px;
+  }
+  .links {
+    display: flex;
+    justify-content: space-between;
+  }
+  .link-logo {
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .codepen {
+    background-image: url(https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Large.png);
+  }
+  .github {
+    background-image: url(https://cdn-icons-png.flaticon.com/512/733/733609.png);
+  }
+  .dev {
+    background-image: url(https://raw.githubusercontent.com/gist/benhalpern/eff81b17359acafd17849146549b9291/raw/6de3cc24798bd3b133d4d89a1d87004c369eac46/dev-icon.svg);
+  }
+  .linkedin {
+    background-image: url(https://cdn-icons-png.flaticon.com/512/61/61109.png);
+  }
+
+/*
+ * POKEBALL 
+ */
+
+/* animation frame! rotation movement of the pokeball */
+@-webkit-keyframes spinning {
+    0% {
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
+    50% {
+      transform: rotate(325deg);
+      -webkit-transform: rotate(325deg);
+    }
+    100% {
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
+  }
+  
+  @-webkit-keyframes translating {
+    0% {
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+    }
+    50% {
+      transform: translateX(50%);
+      -webkit-transform: translateX(50%);
+    }
+    100% {
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+    }
+  }
+  
+  @-webkit-keyframes color-change {
+      0%, 20%, 40%, 60%, 100% {
+          background-color: #fff;
+      }
+      10%, 30%, 50%, 70%, 90% {
+          background-color: #f00;
+      }
+  }
+  
+  * {
+      margin: 0;
+      padding: 0;
+  }
+  
+  /* body {
+      background-color: #f5f5f5;
+  } */
+  
+  #StefTastan {
+      width: 715px;
+      height: 150px;
+      margin: 0 auto;
+      position: relative;
+  }
+  
+  #StefTastan #moving-container {
+      width: 10em;
+      height: 10em;
+      margin: 10px auto 70px;
+      position: relative;
+      -webkit-animation: translating 5s infinite;
+  }
+  /* pokeball container */
+  #StefTastan #pokeball-container {
+      width: 10em;
+      height: 10em;
+      margin: 20p
+      x auto;
+        -webkit-animation: spinning 5s infinite;
+  }
+  
+  #StefTastan #pokeball { 
+      width: 10em;
+      height: 10em;
+      background-color: #fff;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+  }
+  
+  #StefTastan #pokeball::before {
+      content: '';
+      background-color: red;
+      border-radius: 5em 5em 0 0;
+      width: 10em;
+      height: 5em;
+      position: absolute;
+  }
+  
+  #StefTastan #pokeball .pokeball-details {
+      width: 10em;
+      height: 1em;
+      background-color: #333;
+      position: absolute;
+      top: 4.5em;
+  }
+  
+  
+  /* the pokemon's button or whatever it is */
+  #StefTastan #pokeball .pokeball-details::before {
+      content: '';
+      width: 3.5em;
+      height: 3.5em;
+      border-radius: 50%;
+      background-color: #333;
+      position: absolute;
+      top: -1.25em;
+      left: 3.25em;
+      z-index: 200;
+  }
+  
+  #StefTastan #pokeball .pokeball-details::after {
+      content: '';
+      width: 1.8em;
+      height: 1.8em;
+      border: 0.3em solid white;
+      border-radius: 50%;
+      background-color: #fff;
+      position: absolute;
+      top: -0.65em;
+      left: 3.80em;
+      margin: 0 auto;
+      z-index: 250;
+      -webkit-animation: color-change 3s infinite;
+  }
+  
+  
+  /*
+   * CHARMANDER 
+   */
+  
+  #StefTastan #charmander {
+      position: relative;
+      width: 10em;
+      height: 12em;
+      float: left;
+  }
+  #StefTastan #charmander #body {
+      width: 8em;
+      height: 13em;
+      background-color: #e88923;
+      border-radius: 5em 5em 0 0;
+      z-index: 150;
+      position: relative;
+  }
+  
+  #StefTastan #charmander #feet::before {
+      content: '';
+      width: 2em;
+      height: 2em;
+      background-color: #e88923;
+      border-radius: 0 0 1em 1em;
+      position: absolute;
+      top: 12em;
+  }
+  
+  #StefTastan #charmander #feet::after {
+      content: '';
+      width: 2em;
+      height: 2em;
+      background-color: #e88923;
+      border-radius: 0 0 1em 1em;
+      position: absolute;
+      top: 12em;
+      left: 6em;
+  }
+  
+  #StefTastan #charmander #eyes::before {
+      content: '';
+      width: 1.5em;
+      height: 1.5em;
+      background-color: #fff;
+      border-radius: 1em;
+      position: absolute;
+      top: 2em;
+      left: 1em;
+  }
+  
+  #StefTastan #charmander #eyes::after {
+      content: '';
+      width: 1.5em;
+      height: 1.5em;
+      background-color: #fff;
+      border-radius: 1em;
+      position: absolute;
+      top: 2em;
+      left: 4.5em;
+  }
+  
+  #StefTastan #charmander #pupils::before {
+      content: '';
+      width: 0.75em;
+      height: 1.5em;
+      background-color: #000;
+      border-radius: 0 1em 1em 0;
+      position: absolute;
+      top: 2em;
+      left: 5.25em;
+  }
+  
+  #StefTastan #charmander #pupils::after {
+      content: '';
+      width: 0.75em;
+      height: 1.5em;
+      background-color: #000;
+      border-radius: 0 1em 1em 0;
+      position: absolute;
+      top: 2em;
+      left: 1.75em;
+  }
+  
+  #StefTastan #charmander #nostrils::before {
+      content: '';
+      width: 0.25em;
+      height: 0.25em;
+      background-color: #000;
+      border-radius: 1em;
+      position: absolute;
+      top: 3em;
+      left: 3em;
+  }
+  
+  #StefTastan #charmander #nostrils::after {
+      content: '';
+      width: 0.25em;
+      height: 0.25em;
+      background-color: #000;
+      border-radius: 1em;
+      position: absolute;
+      top: 3em;
+      left: 3.75em;
+  }
+  
+  #StefTastan #charmander #mouth::before {
+      content: '';
+      width: 1.25em;
+      height: 0.75em;
+      background-color: #942e58;
+      border-radius: 0 0 3em 3em;
+      position: absolute;
+      top: 3.75em;
+      left: 2.85em;
+  }
+  
+  #StefTastan #charmander #belly {
+      content: '';
+      width: 5.5em;
+      height: 5.5em;
+      background-color: #f8e393;
+      border-radius: 2em 2em 0 2em;
+      position: absolute;
+      top: 7.5em;
+      left: 0.5em;
+      z-index: 10;
+  }
+  
+  #StefTastan #charmander #tail::before {
+      content: '';
+      width: 3em;
+      height: 2.75em;
+      background-color: #e88923;
+      border-radius: 0 0 2em 0;
+      position: absolute;
+      top: 10em;
+      left: 8em;
+      z-index: 10;
+  }
+  
+  #StefTastan #charmander #tail::after {
+      content: '';
+      width: 1.5em;
+      height: 1.5em;
+      background-color: #f5f5f5;
+      border-radius: 0 0 50% 0;
+      position: absolute;
+      top: 9.50em;
+      left: 8em;
+      z-index: 10;
+  }
+  
+  #StefTastan #charmander #tail-tip {
+      content: '';
+      width: 1.5em;
+      height: 1.5em;
+      background-color: #e88923;
+      border-radius: 2em 2em 0 0;
+      position: absolute;
+      top: 9em;
+        left: 9.5em;
+      z-index: 30;
+  }
+  
+  #StefTastan #charmander #arms::before {
+      content: '';
+      width: 2em;
+      height: 2em;
+      background-color: #e88923;
+      border-radius: 2em 0 0 2em;
+      position: absolute;
+      top: 5.75em;
+      left: -1.5em;
+      z-index: 10;
+  }
+  
+  #StefTastan #charmander #arms::after {
+      content: '';
+      width: 2em;
+      height: 2em;
+      background-color: #e88923;
+      border-radius: 0 2em 2em 0;
+      position: absolute;
+      top: 5.75em;
+      left: 7.75em;
+      z-index: 10;
+  }
+  
+  #StefTastan #charmander #flame {
+      content: '';
+      width: 2.5em;
+      height: 2.5em;
+      overflow: hidden;
+        border-bottom-right-radius: 50%;
+       border-bottom-left-radius: 50%; 
+      border-top-left-radius: 50%;
+      -webkit-transform:rotate(-45deg);
+      background-color: #FFB800;
+      position: absolute;
+      top: 8em;
+      left: 9em;
+      z-index: 300;
+  
+  }
+  
+  /*
+   * BULBASAUR
+   */
+  
+  #StefTastan #bulbasaur {
+      position: relative;
+      float: left;
+      left: 3em;
+      width: 10em;
+      height: 12em;
+      top: 1em;
+  }
+  #StefTastan #bulbasaur #body {
+      content: '';
+      width: 12em;
+      height: 7em;
+      top: 5em;
+      left: 2em;
+      background-color: #89e1bc;
+      border-radius: 0 8em 8em 8em;
+      z-index: 150;
+      position: absolute;
+  }
+  
+  #StefTastan #bulbasaur #head {
+      width: 9em;
+      height: 7em;
+      left: 1em;
+      top: 1em;
+      background-color: #89e1bc;
+      border-radius: 1em 0 0 1em;
+      z-index: 200;
+      position: absolute;
+  }
+  
+  #StefTastan #bulbasaur #eyes::before, #StefTastan #squirtle #eyes::before {
+      content: '';
+      width: 1.5em;
+      height: 1.5em;
+      background-color: #fff;
+      border-radius: 1em;
+      position: absolute;
+      top: 2em;
+      left: 1em;
+  }
+  
+  #StefTastan #bulbasaur #eyes::after, #StefTastan #squirtle #eyes::after {
+      content: '';
+      width: 1.5em;
+      height: 1.5em;
+      background-color: #fff;
+      border-radius: 1em;
+      position: absolute;
+      top: 2em;
+      left: 4.5em;
+  }
+  
+  #StefTastan #bulbasaur #pupils::before, #StefTastan #squirtle #pupils::before {
+      content: '';
+      width: 0.75em;
+      height: 1.5em;
+      background-color: #000;
+      border-radius: 0 1em 1em 0;
+      position: absolute;
+      top: 2em;
+      left: 5.25em;
+  }
+  
+  #StefTastan #bulbasaur #pupils::after, #StefTastan #squirtle #pupils::after {
+      content: '';
+      width: 0.75em;
+      height: 1.5em;
+      background-color: #000;
+      border-radius: 0 1em 1em 0;
+      position: absolute;
+      top: 2em;
+      left: 1.75em;
+  }
+  
+  #StefTastan #bulbasaur #nostrils::before, #StefTastan #squirtle #nostrils::before {
+      content: '';
+      width: 0.25em;
+      height: 0.25em;
+      background-color: #000;
+      border-radius: 1em;
+      position: absolute;
+      top: 3em;
+      left: 3em;
+  }
+  
+  #StefTastan #bulbasaur #nostrils::after, #StefTastan #squirtle #nostrils::after {
+      content: '';
+      width: 0.25em;
+      height: 0.25em;
+      background-color: #000;
+      border-radius: 1em;
+      position: absolute;
+      top: 3em;
+      left: 3.75em;
+  }
+  
+  #StefTastan #bulbasaur .mouth, #StefTastan #squirtle #mouth {
+      content: '';
+      width: 1.25em;
+      height: 0.75em;
+      background-color: #942e58;
+      border-radius: 0 0 3em 3em;
+      position: absolute;
+      top: 3.75em;
+      left: 2.85em;
+  }
+  
+  #StefTastan #bulbasaur #front-feet::before {
+      content: '';
+      width: 2em;
+      height: 5em;
+      background-color: #89e1bc;
+      border-radius: 0 0 1em 1em;
+      position: absolute;
+      top: 8em;
+      left: 2em;
+  }
+  
+  #StefTastan #bulbasaur #front-feet::after {
+      content: '';
+      width: 2em;
+      height: 5em;
+      background-color: #89e1bc;
+      border-radius: 0 0 1em 1em;
+      position: absolute;
+      top: 8em;
+      left: 5em;
+  }
+  
+  #StefTastan #bulbasaur #back-feet::before {
+      content: '';
+      width: 2em;
+      height: 5em;
+      background-color: #89e1bc;
+      border-radius: 0 0 1em 1em;
+      position: absolute;
+      top: 8em;
+      left: 12em;
+  }
+  
+  #StefTastan #bulbasaur #back-feet::after {
+      content: '';
+      width: 2em;
+      height: 5em;
+      background-color: #89e1bc;
+      border-radius: 0 0 1em 1em;
+      position: absolute;
+      top: 8em;
+      left: 9em;
+  }
+  
+  #StefTastan #bulbasaur #bulb::before {
+      content: '';
+      width: 11em;
+      height: 11em;
+      overflow: hidden;
+        border-bottom-right-radius: 50%;
+       border-bottom-left-radius: 50%; 
+      border-top-left-radius: 50%;
+      -webkit-transform:rotate(-45deg);
+      background-color: #6aac34;
+      position: absolute;
+      top: -1em;
+      left: 5em;
+  }
+  
+  #StefTastan #bulbasaur #bulb::after {
+      content: '';
+      background-color: #6aac34;
+      border-radius: 0 0 3em 2em;
+      position: absolute;
+      top: 1em;
+      left: 5em;
+  }
+  
+  
+  #StefTastan #bulbasaur .ears::before {
+      content: '';
+      width: 1em;
+      height: 4em;
+      left: 2em;
+      top: 1em;
+      background-color: #89e1bc;
+      border-radius: 4em 4em 0 4em;
+      z-index: 150;
+      position: absolute;
+      top: 0.25em;
+      left: 2em;
+  }
+  
+  #StefTastan #bulbasaur .ears::after {
+      content: '';
+      width: 1em;
+      height: 4em;
+      background-color: #89e1bc;
+      border-radius: 4em 4em 0 4em;
+      z-index: 150;
+      position: absolute;
+      top: 0.25em;
+      left: 9em;
+  }
+  
+  #StefTastan #bulbasaur .spots {
+      content: '';
+      background-color: #006359;
+      border-radius: 1em;
+      z-index: 500;
+      position: absolute;
+  }
+  
+  .spot1 {
+      width: 1.5em;
+      height: 1.5em;
+      top: 1.25em;
+        left: 8em;
+  }
+  
+  .spot2 {
+      width: 1em;
+      height: 1em;
+      top: 2.25em;
+      left: 9.75em;
+  }
+  
+  .spot3 {
+      width: 1em;
+      height: 1em;
+      top: 3em;
+      left: 8.60em;
+  }
+  
+  /*
+   * SQUIRTLE
+   */
+  
+  #StefTastan #squirtle {
+    position: relative;
+    float: left;
+    left: 13em;
+    width: 10em;
+    height: 12em;
+    top: 0;
+  }
+  
+  #StefTastan #squirtle #body {
+      width: 8em;
+      height: 13em;
+      background-color: #ffe69c;
+      border-radius: 5em 5em 2em 4em;
+      z-index: 150;
+      position: relative;
+  }
+  
+  #StefTastan #squirtle #head {
+      content: '';
+      width: 8em;
+      height: 8em;
+      background-color: #94d5cd;
+      border-radius: 4em;
+      position: absolute;
+      top: 0em;
+      z-index: 300;
+  }
+  
+  #StefTastan #squirtle #feet::before {
+      content: '';
+      width: 2em;
+      height: 3em;
+      background-color: #94d5cd;
+      border-radius: 1em;
+      position: absolute;
+      top: 11em;
+      left: 1em;
+      z-index: 500;
+  }
+  
+  #StefTastan #squirtle #feet::after {
+      content: '';
+      width: 2em;
+      height: 3em;
+      background-color: #94d5cd;
+      border-radius: 1em;
+      position: absolute;
+      top: 11em;
+      left: 5em;
+      z-index: 400;
+  }
+  
+  #StefTastan #squirtle #arms::before {
+      content: '';
+      width: 2em;
+      height: 2em;
+      background-color: #94d5cd;
+      border-radius: 2em 0 0 2em;
+      position: absolute;
+      top: 5.75em;
+      left: -1.5em;
+      z-index: 10;
+  }
+  
+  #StefTastan #squirtle #arms::after {
+      content: '';
+      width: 2em;
+      height: 2em;
+      background-color: #94d5cd;
+      border-radius: 0 2em 2em 0;
+      position: absolute;
+      top: 5.75em;
+      left: 7.75em;
+      z-index: 50;
+  }
+  
+  #StefTastan #squirtle #shell::before {
+      content: '';
+      width: 3em;
+      height: 10em;
+      background-color: #DDDBDB;
+      border-radius: 0 2em 2em 0;
+      position: absolute;
+      top: 2.75em;
+      left: 6em;
+      z-index: 10;
+  }
+  
+  #StefTastan #squirtle #shell::after {
+      content: '';
+      width: 3em;
+      height: 8.5em;
+      background-color: #bd6a00;
+      border-radius: 0 3em 3em 0;
+      position: absolute;
+      top: 3.5em;
+      left: 8em;
+      z-index: 5;
+  }
+  
+  #StefTastan #squirtle #tail::before {
+      content: '';
+      width: 3em;
+      height: 6.5em;
+      background-color: #94d5cd;
+      border-radius: 0 3em 3em 0;
+      position: absolute;
+      top: 4.5em;
+      left: 9.5em;
+      z-index: 4;
+  }
+  
+  #StefTastan #squirtle #tail::after {
+      content: '';
+      width: 5em;
+      height: 5em;
+      background-color: #94d5cd;
+      border-radius: 3em;
+      position: absolute;
+      top: 2em;
+      left: 9em;
+      z-index: 4;
+  }
+  
+  
+  

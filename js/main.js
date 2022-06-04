@@ -1,3 +1,4 @@
+
 'use strict';
 
 
@@ -116,6 +117,7 @@ const ctx = canvas.getContext('2d');
 
 // ---------------- file to canvas--------------
 function handlefile(e){
+  console.log('handling');
   var reader = new FileReader();
   file_or_realtime = 0;
   reader.onload = function(event){
