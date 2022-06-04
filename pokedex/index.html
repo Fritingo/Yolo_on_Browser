@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/jquery.js" type="text/javascript"></script>
+    <script src="./js/csmapi.js"></script>
+    <script src="./js/dan.js"></script>
+    <script src="./js/dai.js"></script>
+    <link rel="stylesheet" href="src/styles/index.css" />
+    <script src="./js/ida.js"></script>
+
+    <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <title>Pokedex</title>
+  </head>
+  <body>
+    <header class="main-header">
+      <img src="src/images/logo.png" alt="Pokemon Logo" class="logo" />
+
+      <div class="search-container">
+        <form class="search-box" id="search-form">
+          <input type="search" />
+          <button>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0)">
+                <path
+                  d="M13.8289 13.0051L9.84773 9.02389C10.6189 8.07132 11.0832 6.86091 11.0832 5.5426C11.0832 2.48713 8.59706 0.000976562 5.54159 0.000976562C2.48612 0.000976562 0 2.4871 0 5.54257C0 8.59804 2.48615 11.0842 5.54162 11.0842C6.85993 11.0842 8.07035 10.6199 9.02291 9.8487L13.0041 13.8299C13.1179 13.9437 13.2672 14.0008 13.4165 14.0008C13.5659 14.0008 13.7152 13.9437 13.829 13.8299C14.057 13.6018 14.057 13.2332 13.8289 13.0051ZM5.54162 9.91753C3.12897 9.91753 1.16666 7.95522 1.16666 5.54257C1.16666 3.12992 3.12897 1.16761 5.54162 1.16761C7.95427 1.16761 9.91658 3.12992 9.91658 5.54257C9.91658 7.95522 7.95425 9.91753 5.54162 9.91753Z"
+                  fill="#FFC0CB"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0">
+                  <rect width="14" height="14" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header>
+
+    <section class="poke-list" id="pokemon-list">
+
+    <a class="card-container" id="Duck" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#1</span>
+      <img src="src/images/duck.png" alt="bulbasaur">
+  
+      <h2 class="poke-name">duck</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Grass.png" alt="grass" title="grass">
+                </li><li>
+                <img src="src/images/pokemon-types/Poison.png" alt="poison" title="poison">
+                </li>
+      </ul>
+    </a>
+    <a class="card-container" id="Panda" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#2</span>
+      <img src="src/images/panda.png" alt="ivysaur">
+  
+      <h2 class="poke-name">panda</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Grass.png" alt="grass" title="grass">
+                </li><li>
+                <img src="src/images/pokemon-types/Poison.png" alt="poison" title="poison">
+                </li>
+      </ul>
+    </a>
+    <a class="card-container" id="Zebra" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#3</span>
+      <img src="src/images/zebra.png" alt="venusaur">
+  
+      <h2 class="poke-name">zebra</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Grass.png" alt="grass" title="grass">
+                </li><li>
+                <img src="src/images/pokemon-types/Poison.png" alt="poison" title="poison">
+                </li>
+      </ul>
+    </a>
+    <a class="card-container" id="Tiger" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#4</span>
+      <img src="src/images/tiger.png" alt="charmander">
+  
+      <h2 class="poke-name">tiger</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Fire.png" alt="fire" title="fire">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="Koala" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#5</span>
+      <img src="src/images/koala.png" alt="charmeleon">
+  
+      <h2 class="poke-name">koala</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Fire.png" alt="fire" title="fire">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="Lion" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#6</span>
+      <img src="src/images/lion.png" alt="charizard">
+  
+      <h2 class="poke-name">lion</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Fire.png" alt="fire" title="fire">
+                </li><li>
+                <img src="src/images/pokemon-types/Flying.png" alt="flying" title="flying">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="Fish" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#7</span>
+      <img src="src/images/fish.png" alt="squirtle">
+  
+      <h2 class="poke-name">fish</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Water.png" alt="water" title="water">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="Penguin" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#8</span>
+      <img src="src/images/penguin.png" alt="wartortle">
+  
+      <h2 class="poke-name">penguin</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Water.png" alt="water" title="water">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="Snail" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#9</span>
+      <img src="src/images/snail.png" alt="blastoise">
+  
+      <h2 class="poke-name">snail</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Water.png" alt="water" title="water">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="Chicken" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#10</span>
+      <img src="src/images/chicken.png" alt="caterpie">
+  
+      <h2 class="poke-name">chicken</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Bug.png" alt="bug" title="bug">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="Rabbit" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#11</span>
+      <img src="src/images/rabbit.png" alt="metapod">
+  
+      <h2 class="poke-name">rabbit</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Bug.png" alt="bug" title="bug">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="Pig" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#12</span>
+      <img src="src/images/pig.png" alt="butterfree">
+  
+      <h2 class="poke-name">pig</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Bug.png" alt="bug" title="bug">
+                </li><li>
+                <img src="src/images/pokemon-types/Flying.png" alt="flying" title="flying">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="Monkey" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#13</span>
+      <img src="src/images/monkey.png" alt="weedle">
+  
+      <h2 class="poke-name">monkey</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Bug.png" alt="bug" title="bug">
+                </li><li>
+                <img src="src/images/pokemon-types/Poison.png" alt="poison" title="poison">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="dog" href="" style="background-color: rgba(0, 0, 0, .5);">
+      <span class="poke-number">#14</span>
+      <img src="src/images/dog.png" alt="weedle">
+  
+      <h2 class="poke-name">dog</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Fire.png" alt="fire" title="fire">
+                </li>
+      </ul>
+    </a>
+  <a class="card-container" id="cat" style="background-color: rgba(0, 0, 0, .5);" href="">
+      <span class="poke-number">#15</span>
+      <img src="src/images/cat.png" alt="weedle">
+  
+      <h2 class="poke-name">cat</h2>
+      <ul class="poke-types">
+      <li>
+                <img src="src/images/pokemon-types/Water.png" alt="water" title="water">
+                </li>
+      </ul>
+    </a>
+    </section>
+
+    <button class="back-to-top" id="back-to-top">🔝</button>
+    <button id="1">#1</button>
+    <button id="2">#2</button>
+    <button id="3">#3</button>
+    <button id="4">#4</button>
+    <button id="5">#5</button>
+    <button id="6">#6</button>
+    <button id="7">#7</button>
+    <button id="8">#8</button>
+    <button id="9">#9</button>
+    <button id="10">#10</button>
+    <button id="11">#11</button>
+    <button id="12">#12</button>
+    <button id="13">#13</button>
+    <button id="14">#14</button>
+    <button id="15">#15</button>
+
+    <script src="src/scripts/list.js"></script>
+  </body>
+</html>
